@@ -111,7 +111,7 @@ function ReadOperations({ contractAddress, contractMetadata }) {
 	}
 
 	const readFunctionList = contractMetadata.filter(
-		(item) => item.stateMutability === "view",
+		(item) => item.stateMutability === "view" && item.inputs.length === 0,
 	);
 
 	if (!readFunctionList) {
