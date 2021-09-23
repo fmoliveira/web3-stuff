@@ -1,5 +1,7 @@
 import Head from "next/head";
 import { Fragment, useState } from "react";
+import cx from "classnames";
+
 import { useContractMetadata } from "../hooks/useContractMetadata";
 
 export default function Home() {
@@ -58,6 +60,15 @@ function Form({ address, setAddress }) {
 }
 
 function ReadOperations({ contractMetadata }) {
+	const [highlights, setHighlights] = useState({});
+
+	const toggleHighlight = (operationName: string) => {
+		setHighlights({
+			...highlights,
+			[operationName]: !highlights[operationName],
+		});
+	};
+
 	if (!contractMetadata) {
 		return (
 			<div className="center">
@@ -78,9 +89,17 @@ function ReadOperations({ contractMetadata }) {
 
 	return (
 		<div className="operation-grid">
-			{readFunctionList.map((item) => (
-				<Fragment key={item.name}>
-					<div className="operation-name">{item.name}</div>
+			{readFunctionList.map(({ name }) => (
+				<Fragment key={name}>
+					<div
+						className={cx(
+							"operation-name",
+							highlights[name] && "operation--highlight",
+						)}
+						onClick={() => toggleHighlight(name)}
+					>
+						{name}
+					</div>
 					<div className="operation-value">N/A</div>
 				</Fragment>
 			))}
