@@ -1,12 +1,21 @@
 import Head from "next/head";
-import { Fragment, useState } from "react";
+import { Fragment, useCallback, useEffect, useState } from "react";
 import cx from "classnames";
 
 import { useContractMetadata } from "../hooks/useContractMetadata";
+import { useWallet } from "../hooks/useWallet";
+import { useContractProvider } from "../hooks/useContractProvider";
 
 export default function Home() {
 	const [address, setAddress] = useState("");
 	const { data } = useContractMetadata(address);
+	const { account, connect } = useWallet();
+
+	useEffect(() => {
+		if (!account && address) {
+			connect();
+		}
+	}, [address]);
 
 	return (
 		<div>
@@ -14,7 +23,7 @@ export default function Home() {
 			<main>
 				<Header />
 				<Form address={address} setAddress={setAddress} />
-				<ReadOperations contractMetadata={data} />
+				<ReadOperations contractAddress={address} contractMetadata={data} />
 			</main>
 		</div>
 	);
@@ -59,8 +68,32 @@ function Form({ address, setAddress }) {
 	);
 }
 
-function ReadOperations({ contractMetadata }) {
+function ReadOperations({ contractAddress, contractMetadata }) {
 	const [highlights, setHighlights] = useState({});
+	const [values, setValues] = useState({});
+	const provider = useContractProvider(contractAddress, contractMetadata);
+
+	const updateValues = useCallback(() => {
+		const watching = Object.keys(highlights).filter(
+			(item) => highlights[item] === true,
+		);
+		watching.forEach(async (operation) => {
+			const value = await provider.getContract()[operation]();
+			setValues({
+				...values,
+				[operation]: value.toString(),
+			});
+		});
+	}, [highlights]);
+
+	useEffect(() => {
+		updateValues();
+		const interval = setInterval(updateValues, 2000);
+
+		return () => {
+			clearInterval(interval);
+		};
+	}, [updateValues]);
 
 	const toggleHighlight = (operationName: string) => {
 		setHighlights({
@@ -100,7 +133,7 @@ function ReadOperations({ contractMetadata }) {
 					>
 						{name}
 					</div>
-					<div className="operation-value">N/A</div>
+					<div className="operation-value">{values[name] ?? "-"}</div>
 				</Fragment>
 			))}
 		</div>
