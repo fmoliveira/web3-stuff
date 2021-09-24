@@ -84,16 +84,31 @@ function ReadOperations({ contractAddress, contractMetadata }) {
 				[operation]: value.toString(),
 			});
 		});
-	}, [highlights]);
+	}, [highlights, values, provider]);
 
 	useEffect(() => {
-		updateValues();
-		const interval = setInterval(updateValues, 2000);
+		if (!contractMetadata) {
+			return;
+		}
 
-		return () => {
-			clearInterval(interval);
-		};
-	}, [updateValues]);
+		const eventList = contractMetadata.filter((item) => item.type === "event");
+		eventList.forEach((event) => {
+			provider.getContract().on(event.name, () => {
+				updateValues();
+			});
+		});
+		updateValues();
+	}, [contractMetadata, provider, updateValues]);
+
+	// TODO: might give users the option to read at an interval? especially when a contract doesn't emit events
+	// useEffect(() => {
+	// 	updateValues();
+	// 	const interval = setInterval(updateValues, 2000);
+
+	// 	return () => {
+	// 		clearInterval(interval);
+	// 	};
+	// }, [updateValues]);
 
 	const toggleHighlight = (operationName: string) => {
 		setHighlights({
