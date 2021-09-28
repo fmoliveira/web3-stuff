@@ -1,7 +1,7 @@
 const { expect, use } = require("chai");
 const { deployContract, MockProvider, solidity } = require("ethereum-waffle");
 
-const TestToken = require("../artifacts/contracts/TestToken.sol/TestToken.json");
+const TestToken = require("../build/TestToken.json");
 
 use(solidity);
 

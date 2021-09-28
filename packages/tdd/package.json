@@ -3,7 +3,8 @@
 	"version": "0.1.0",
 	"private": true,
 	"scripts": {
-		"compile": "hardhat compile",
+		"build": "waffle",
+		"pretest": "yarn build",
 		"test": "npx hardhat test"
 	},
 	"devDependencies": {

@@ -1,6 +1,9 @@
 node_modules
 .env
 
-#Hardhat files
+# Waffle output
+build
+
+# Hardhat files
 cache
 artifacts
