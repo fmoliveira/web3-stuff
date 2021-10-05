@@ -10,13 +10,14 @@ export default function getTraitsFrequency(inputData) {
 		Object.keys(traitsList).forEach((traitType) => {
 			// initializes frequency structure for each trait type
 			if (!traitFrequency[traitType]) {
-				traitFrequency[traitType] = {};
+				traitFrequency[traitType] = { _count: 0 };
 			}
 
 			const traitValue = traitsList[traitType];
 
 			// initializes counter for each trait value
 			if (!traitFrequency[traitType][traitValue]) {
+				traitFrequency[traitType]._count++;
 				traitFrequency[traitType][traitValue] = 0;
 			}
 
