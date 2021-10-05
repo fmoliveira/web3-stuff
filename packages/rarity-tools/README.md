@@ -49,7 +49,7 @@ See an example below:
 
 Moreover, you can download an example by running the command `yarn pull:example`. Check the downloaded file at `data/loot.json`.
 
-> Why this format? Just because it's what the [most popular Loot script](https://github.com/Anish-Agnihotri/dhof-loot) uses. Since the Loot contract has lots of derivates, this tool will probably help more people by following that same format.
+> Why this format? Because it's what the [most popular Loot script](https://github.com/Anish-Agnihotri/dhof-loot) uses. Since the Loot contract has lots of derivatives, this tool will probably help more people by following that same format.
 
 ### Executing the tool
 
