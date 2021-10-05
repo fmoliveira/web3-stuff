@@ -4,11 +4,11 @@ Calculate rarity score of NFTs with [rarity.tools](https://raritytools.medium.co
 
 ## Getting started
 
-## Requirements
+### Requirements
 
 You need a recent version of Node.js installed. Node.js version 14+ is recommended.
 
-## Preparing JSON file with your NFT traits
+### Preparing JSON file with your NFT traits
 
 To use this tool, you need a JSON file containing all the traits for each token IDs of your NFT.
 
@@ -47,7 +47,7 @@ The format technically is: an array of objects, containing a string-key of your 
 
 > Why this format? Just because it's what the [most popular Loot script](https://github.com/Anish-Agnihotri/dhof-loot) uses. Since the Loot contract has lots of derivates, this tool will probably help more people by following that same format.
 
-## Executing the tool
+### Executing the tool
 
 Run the script `src/index.mjs` passing the path to your JSON file as an argument, for example:
 
