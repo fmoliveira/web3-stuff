@@ -5,25 +5,23 @@ export default function getTraitsFrequency(inputData) {
 	const traitFrequency = {};
 
 	inputData.forEach((token) => {
-		const [tokenId] = Object.keys(token);
-		const tokenData = token[tokenId];
-		const traitList = Object.keys(tokenData);
+		const { traitsList } = token;
 
-		traitList.forEach((traitName) => {
+		Object.keys(traitsList).forEach((traitType) => {
 			// initializes frequency structure for each trait type
-			if (!traitFrequency[traitName]) {
-				traitFrequency[traitName] = {};
+			if (!traitFrequency[traitType]) {
+				traitFrequency[traitType] = {};
 			}
 
-			const traitValue = tokenData[traitName];
+			const traitValue = traitsList[traitType];
 
 			// initializes counter for each trait value
-			if (!traitFrequency[traitName][traitValue]) {
-				traitFrequency[traitName][traitValue] = 0;
+			if (!traitFrequency[traitType][traitValue]) {
+				traitFrequency[traitType][traitValue] = 0;
 			}
 
 			// increments frequency
-			traitFrequency[traitName][traitValue]++;
+			traitFrequency[traitType][traitValue]++;
 		});
 	});
 

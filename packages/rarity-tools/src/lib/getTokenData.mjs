@@ -39,10 +39,17 @@ export default function getTokenData(fileContents) {
 	}
 
 	// asserts that each element of the array contains an object with only one key-object pair
-	json.forEach(assertObjectIsValid);
+	const tokenList = [];
+	json.forEach((tokenData, index) => {
+		const { tokenId, traitsList } = assertObjectIsValid(tokenData, index);
+		tokenList.push({
+			tokenId,
+			traitsList,
+		});
+	});
 
 	// input data is all good!
-	return json;
+	return tokenList;
 }
 
 /**
@@ -77,8 +84,8 @@ function assertObjectIsValid(tokenData, index) {
 	}
 
 	const [tokenId] = keys;
-	const traitsData = tokenData[tokenId];
-	const whatType = typeof traitsData;
+	const traitsList = tokenData[tokenId];
+	const whatType = typeof traitsList;
 
 	// token traits must be an object
 	if (whatType !== "object") {
@@ -89,7 +96,7 @@ function assertObjectIsValid(tokenData, index) {
     `);
 	}
 
-	const traitsEntries = Object.keys(traitsData);
+	const traitsEntries = Object.keys(traitsList);
 
 	// no trait names should be empty
 	if (!traitsEntries.every((i) => i.length !== 0)) {
@@ -111,7 +118,7 @@ function assertObjectIsValid(tokenData, index) {
 
 	// token traits values must not be empty
 	traitsEntries.forEach((traitName) => {
-		const traitValue = traitsData[traitName];
+		const traitValue = traitsList[traitName];
 		if (String(traitValue).length === 0) {
 			displayError(`
       ERROR: Value for trait '${traitName}' at token id ${tokenId} must not be empty!
@@ -120,4 +127,6 @@ function assertObjectIsValid(tokenData, index) {
       `);
 		}
 	});
+
+	return { tokenId, traitsList };
 }
