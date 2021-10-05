@@ -8,6 +8,8 @@ Calculate rarity score of NFTs with [rarity.tools](https://raritytools.medium.co
 
 You need a recent version of Node.js installed. Node.js version 14+ is recommended.
 
+Other than Node.js, this project has no npm dependencies.
+
 ### Preparing JSON file with your NFT traits
 
 To use this tool, you need a JSON file containing all the traits for each token IDs of your NFT.
