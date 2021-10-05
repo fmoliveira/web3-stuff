@@ -1,0 +1,8 @@
+{
+	"name": "@web3-stuff/rarity-tools",
+	"version": "0.1.0",
+	"private": true,
+	"scripts": {
+		"pull:example": "mkdir -p data && curl https://raw.githubusercontent.com/Anish-Agnihotri/dhof-loot/master/output/loot.json -o data/loot.json"
+	}
+}
