@@ -14,7 +14,9 @@ Other than Node.js, this project has no npm dependencies.
 
 To use this tool, you need a JSON file containing all the traits for each token IDs of your NFT.
 
-You can download an example by running the command `yarn pull:example`. Check the downloaded file at `data/loot.json` and make sure your file looks like that. Details below:
+Your JSON file must contain an array of objects, containing a string-key of your token id associated to another object with your traits. Your traits object can contain as many traits as you wish and there is no naming convention for them.
+
+See an example below:
 
 ```json
 [
@@ -45,7 +47,7 @@ You can download an example by running the command `yarn pull:example`. Check th
 ]
 ```
 
-The format technically is: an array of objects, containing a string-key of your token id associated to another object with your traits. Your traits object can contain as many traits as you wish and there is no naming convention for them.
+Moreover, you can download an example by running the command `yarn pull:example`. Check the downloaded file at `data/loot.json`.
 
 > Why this format? Just because it's what the [most popular Loot script](https://github.com/Anish-Agnihotri/dhof-loot) uses. Since the Loot contract has lots of derivates, this tool will probably help more people by following that same format.
 
