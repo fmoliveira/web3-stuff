@@ -12,7 +12,7 @@ export default function flattenRarityData(rarityScores) {
 	const headers = ["tokenId"];
 	const traitTypes = Object.keys(rarityScores[0].traitsList); // DANGER: may crash if the token traits are not consistent
 	traitTypes.forEach((trait) => {
-		headers.push(trait, trait); // push trait twice to store name and rarity score
+		headers.push(trait, `${trait}Rarity`); // push trait twice to store name and rarity score
 	});
 	headers.push("totalRarity");
 
